@@ -3,4 +3,108 @@
 @tailwind utilities;
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,400&display=swap'); */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap");
+
+/* applying styles using css frameworks tags */
+@layer base {
+  section {
+    @apply py-[75px];
+  }
+}
+
+/* applying styles to classes */
+@layer components {
+  .container {
+    @apply max-w-full w-[1440px] px-10 mx-auto;
+  }
+
+  .btn {
+    @apply bg-blue-900 py-[10px] px-[25px] rounded-[50px] text-white text-[18px] mt-[25px];
+  }
+
+  .heading {
+    @apply text-[44px] leading-[54px] font-[700] text-slate-900;
+  }
+
+  .text__para {
+    @apply text-[20px] leading-[30px] font-[400] text-slate-700 mt-[18px];
+  }
+
+  .header {
+    @apply bg-[url(./assets/images/mask.png)] bg-no-repeat bg-center bg-cover w-full h-[100px] fixed z-[100];
+  }
+
+  .hero__section {
+    @apply bg-[url("https://res.cloudinary.com/djcn6luvw/image/upload/v1694061261/Medibook/hero-bg_agkfhm.png")] bg-no-repeat bg-center bg-cover;
+  }
+
+  .parent-container {
+    @apply bg-white w-full md:max-w-xl lg:max-w-2xl p-2 rounded-lg lg:p-8 shadow-xl m-2 flex flex-col;
+  }
+
+  .header-btn {
+    @apply flex items-center bg-primary text-white py-1 px-2.5 rounded hover:brightness-125 hover:shadow-md;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .container {
+    @apply w-full;
+  }
+
+  section {
+    @apply py-[35px];
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .heading {
+    @apply text-[26px] leading-[26px];
+  }
+
+  .text_para {
+    @apply text-[16px] leading-7 mt-3;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+}
+
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  border: 1px solid #181a1e !important;
+  opacity: 100% !important;
+  background: #fff !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: rgb(46, 80, 231) !important;
+  border: none !important;
+}
+
+.swiper {
+  padding-bottom: 70px !important;
+}
+
+.swiper-slide.swiper-slide-next {
+  background: #0067ff;
+  border-radius: 12px;
+  box-shadow: 0px 20px 70px rgba(0, 103, 255, 0.3) !important;
+}
+
+.swiper-slide.swiper-slide-next h4,
+.swiper-slide.swiper-slide-next p {
+  color: #fff;
+}
+
+.swiper-pagination {
+  top: 90% !important;
+}

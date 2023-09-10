@@ -1,9 +1,9 @@
 // either we can use formik or useFormik for handling forms
 import { Form, Formik } from "formik";
 import Input from "./Input";
-import Button from "../../UI/Button";
+import Button from "../UI/Button";
 import PasswordInput from "./PasswordInput";
-import LoadingButton from "../../UI/LoadingButton";
+import LoadingButton from "../UI/LoadingButton";
 import { toast } from "react-hot-toast";
 import { useCallback, useState } from "react";
 import { loginSchema } from "../../schema/auth";

@@ -23,3 +23,7 @@ export const getLocalData = (): ICurrentUser | null => {
   //Parsing JSON data stored in local storage to Object
   return JSON.parse(localData);
 };
+
+export const removeLocalData = (): void => {
+  localStorage.removeItem("medibook");
+};

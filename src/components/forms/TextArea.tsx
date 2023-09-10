@@ -1,15 +1,23 @@
 import { Field, ErrorMessage } from "formik";
 
 // defining the type of props, we can also use type
-interface inputProps {
+interface TextAreaProps {
   name: string;
   placeholder: string;
-  type: string;
   edit?: boolean;
   className?: string;
+  rows: number; // Define 'rows' as a property
+  cols: number; // Define 'cols' as a property
 }
 
-function Input({ name, placeholder, type, edit, className }: inputProps) {
+function TextArea({
+  name,
+  placeholder,
+  rows,
+  cols,
+  edit,
+  className,
+}: TextAreaProps) {
   return (
     <div className={`${className} flex flex-col`}>
       {edit && (
@@ -22,11 +30,13 @@ function Input({ name, placeholder, type, edit, className }: inputProps) {
       )}
       {/* Field is provided by Formik to represent input elements */}
       <Field
+        as="textarea"
         className="rounded-md px-4 py-2 shadow focus:outline-none w-full"
         id={name}
         name={name}
         placeholder={placeholder}
-        type={type}
+        rows={rows}
+        cols={cols}
       />
       <span className="m-1 text-sm font-semibold text-red-800">
         <ErrorMessage name={name} />
@@ -35,4 +45,4 @@ function Input({ name, placeholder, type, edit, className }: inputProps) {
   );
 }
 
-export default Input;
+export default TextArea;
