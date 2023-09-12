@@ -22,7 +22,7 @@ function Login() {
       })
     );
     // after above function navigate to the dashboard
-    navigate("/chief-wardens/dashboard");
+    navigate("/super-admins/dashboard");
   };
 
   return (

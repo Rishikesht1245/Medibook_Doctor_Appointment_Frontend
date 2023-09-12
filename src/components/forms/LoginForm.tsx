@@ -63,7 +63,12 @@ function LoginForm({ loginHandler, onSubmit }: LoginFormProps) {
                 response: {
                   data: { message },
                 },
-              }) => setMessage(message)
+              }) => {
+                setMessage(message);
+                toast.error(`${message}`, {
+                  style: { background: "rgb(0,0,0,0.9", color: "white" },
+                });
+              }
             )
             .finally(() => setSubmitting(false));
         }}

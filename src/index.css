@@ -43,7 +43,7 @@
   }
 
   .header-btn {
-    @apply flex items-center bg-primary text-white py-1 px-2.5 rounded hover:brightness-125 hover:shadow-md;
+    @apply flex items-center bg-primary text-white py-1 px-5 rounded hover:brightness-125 hover:shadow-md;
   }
 }
 

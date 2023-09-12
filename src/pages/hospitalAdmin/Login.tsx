@@ -32,9 +32,9 @@ const Login = () => {
       {/* onsubmit login will make a post request to the server  */}
       <LoginForm onSubmit={login} loginHandler={loginHandler} />
       <div className="ml-auto text-sm pt-1 px-2 flex flex-row justify-between items-center">
-        <Link to="/hospital-admins/signup"> Register new Hospital 🏥</Link>
+        <Link to="/hospital-admins/signup"> Register Hospital ➡️</Link>
         <span> or </span>
-        <Link to="/super-admins/login"> Super Admin Login ➡️</Link>
+        <Link to="/super-admins/login"> Super Admin ➡️</Link>
       </div>
     </div>
   );

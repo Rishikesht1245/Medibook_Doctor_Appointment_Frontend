@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { defaultProfileImg } from "../../assets/images/images";
+import HeaderLinks from "../layouts/HeaderLinks";
 
 // interface for component props
 interface LoggedInHeaderButtonProps {
@@ -22,17 +23,17 @@ function LoggedInHeaderButton({
   const [dropdown, setDropdown] = useState<boolean>(false);
 
   const [route, setRoute] = useState<
-    "superAdmins" | "hospitalAdmins" | "doctors" | "patients" | ""
+    "super-admins" | "hospital-admins" | "doctors" | "patients" | ""
   >("");
 
   // switching to the route based on the role of user
   useEffect(() => {
     switch (role) {
       case "superAdmin":
-        setRoute("superAdmins");
+        setRoute("super-admins");
         break;
       case "hospitalAdmin":
-        setRoute("hospitalAdmins");
+        setRoute("hospital-admins");
         break;
       case "doctor":
         setRoute("doctors");
@@ -44,7 +45,7 @@ function LoggedInHeaderButton({
   }, []);
 
   return (
-    <div className="group">
+    <div className="group lg:mr-10">
       <div className="hidden lg:block">
         {/* logout button */}
         <Link
@@ -64,7 +65,7 @@ function LoggedInHeaderButton({
         {/* user Profile button */}
         <Link className="relative" to={`/${route}/profile`}>
           <div className="flex gap-6">
-            <button className="header-btn">
+            <button className="header-btn w-[125px] flex justify-around">
               <img
                 className="h-7 mr-1 rounded-sm"
                 src={currentUser?.currentUser?.profilePic || defaultProfileImg}
@@ -85,6 +86,7 @@ function LoggedInHeaderButton({
       >
         {/* image will be button on clicking dropdown will show */}
         <img
+          className="h-7 mr-1 rounded-sm"
           src={currentUser?.currentUser?.profilePic || defaultProfileImg}
           alt="profile"
         />
@@ -97,6 +99,8 @@ function LoggedInHeaderButton({
         >
           {children}
           <Link to={`/${route}/profile`}>Profile</Link>
+          <HeaderLinks currentUser={currentUser} />
+
           <Link
             to={`/${route}/login`}
             onClick={() => {

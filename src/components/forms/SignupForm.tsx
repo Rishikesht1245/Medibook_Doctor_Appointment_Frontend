@@ -60,10 +60,10 @@ function SignupForm({ onSubmit }: SignupFormProps) {
           setMessage(null);
           setSubmitting(true);
           onSubmit(formData)
-            .then((response) => {
-              if (response.data.success) {
-                navigate("/patients/login");
-                return toast.success(response.data.message, {
+            .then(({ data }) => {
+              if (data.success) {
+                navigate(`/patients/signup/otp-verification/${data.id}`);
+                return toast.success(data.message, {
                   style: { background: "rgba(0,0,0,0.9", color: "white" },
                 });
               }
@@ -73,7 +73,12 @@ function SignupForm({ onSubmit }: SignupFormProps) {
                 response: {
                   data: { message },
                 },
-              }) => setMessage(message)
+              }) => {
+                setMessage(message);
+                return toast.error(message, {
+                  style: { background: "rgba(0,0,0,0.9", color: "white" },
+                });
+              }
             )
             .finally(() => setSubmitting(false));
         }}

@@ -7,6 +7,7 @@ import Home from "./pages/patients/Home";
 import PatientRoutes from "./Routes/PatientRoutes";
 import HospitalAdminRoutes from "./Routes/HospitalAdminRoutes";
 import DoctorRoutes from "./Routes/DoctorRoutes";
+import { Toaster } from "react-hot-toast";
 import "./index.css";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<Home />} />
         </Routes>
       </BrowserRouter>
+      <Toaster />
     </>
   );
 }
