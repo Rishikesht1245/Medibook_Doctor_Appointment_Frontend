@@ -76,7 +76,7 @@ const PatientHeader = () => {
           {/* =================== NAV Right  ================= */}
           <div className="flex items-center gap-4">
             <div>
-              {currentUser && (
+              {currentUser ? (
                 <LoggedInHeaderButton currentUser={currentUser} role="patient">
                   <>
                     {headerLinks.map((item: { name: string; link: string }) => (
@@ -95,49 +95,51 @@ const PatientHeader = () => {
                     ))}
                   </>
                 </LoggedInHeaderButton>
-              )}
-              {location?.pathname === "/patients/login" ? (
+              ) : location?.pathname === "/patients/login" ? (
                 <LoggedOutHeaderButton role="patient" />
               ) : (
                 <Link className="text-primary font-bold" to={"/patients/login"}>
-                  <button className="bg-blue-900 py-1 px-4 text-white font-[600] flex items-center justify-center rounded-md">
+                  <button className="bg-primary py-1 px-4 text-white font-[600] flex items-center justify-center rounded-md">
                     Login
                   </button>
                 </Link>
               )}
             </div>
-            {/* Nav links for small devices */}
-            <div className="sm:hidden flex flex-1 justify-end items-center">
-              <img
-                src={toggle ? close : menu}
-                alt="Menu bar"
-                className="w-[20px] h-[20px] object-contain"
-                onClick={() => setToggle((prev) => !prev)}
-              />
 
-              <div
-                className={`${
-                  toggle ? "flex" : "hidden"
-                } p-6 bg-slate-200 absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar shadow-xl`}
-              >
-                {/* Nav Links */}
-                <ul className="list-none justify-end items-center">
-                  {headerLinks.map((link, index) => {
-                    return (
-                      <li
-                        key={link.name}
-                        className={`font-poppins  cursor-pointer text-[16px] text-black flex flex-col flex-1 ${
-                          index === headerLinks.length - 1 ? "mb-0" : "mb-2"
-                        }
+            {/* Nav links for small devices */}
+            {!currentUser && (
+              <div className="sm:hidden flex flex-1 justify-end items-center">
+                <img
+                  src={toggle ? close : menu}
+                  alt="Menu bar"
+                  className="w-[20px] h-[20px] object-contain"
+                  onClick={() => setToggle((prev) => !prev)}
+                />
+
+                <div
+                  className={`${
+                    toggle ? "flex" : "hidden"
+                  } p-6 bg-slate-200 absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar shadow-xl`}
+                >
+                  {/* Nav Links */}
+                  <ul className="list-none justify-end items-center">
+                    {headerLinks.map((link, index) => {
+                      return (
+                        <li
+                          key={link.name}
+                          className={`font-poppins  cursor-pointer text-[16px] text-black flex flex-col flex-1 ${
+                            index === headerLinks.length - 1 ? "mb-0" : "mb-2"
+                          }
                   }`}
-                      >
-                        <a href={link.link}>{link.name}</a>
-                      </li>
-                    );
-                  })}
-                </ul>
+                        >
+                          <a href={link.link}>{link.name}</a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

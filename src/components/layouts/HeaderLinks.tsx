@@ -97,7 +97,7 @@ function HeaderLinks({ currentUser }: HeaderLinkProps) {
         headerLinks = [
           {
             name: "Home",
-            link: "/patients/home",
+            link: "/",
           },
           {
             name: "Doctors",
@@ -127,14 +127,11 @@ function HeaderLinks({ currentUser }: HeaderLinkProps) {
     currentLinks &&
     currentLinks.map((item: { name: string; link: string }) => (
       <NavLink
-        className={`text-sm text-primary font-black ${
-          item?.name === "Chat" && "relative"
-        }`}
-        style={(isActive) => ({
-          textDecoration: isActive ? "underline" : "",
-          textUnderlineOffset: isActive ? "0.4rem" : "",
-          color: isActive ? "#05419e" : "$00255f",
-        })}
+        className={(navClass) =>
+          navClass.isActive
+            ? "text-primary text-[16px] leading-7 font-[600]"
+            : "text-black text-[16px] leading-7 font-[500] hover:text-primary"
+        }
         to={item?.link}
         key={item?.name}
       >

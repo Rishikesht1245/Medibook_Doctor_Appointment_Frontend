@@ -9,10 +9,7 @@ export const login = async (formData: ILogin) =>
   await patientApi.post("/auth", formData);
 
 //otp verification api call, function is directly defined here
-export const verifyOtp = async (
-  otp: string,
-  id: string | undefined
-): Promise<any> => {
+export const verifyOtp = async (otp: string, id: string): Promise<any> => {
   return await patientApi.post("/verify-otp", { otp: otp, id: id });
 };
 

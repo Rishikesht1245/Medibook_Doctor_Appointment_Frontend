@@ -38,7 +38,15 @@ function LoginForm({ loginHandler, onSubmit }: LoginFormProps) {
 
   // if current user data is already present in local storage redirect to dashboard page
   if (currentUser)
-    return <Navigate to={`/${routeTo(currentUser.role)}/dashboard`} />;
+    return (
+      <Navigate
+        to={
+          currentUser.role === "patient"
+            ? "/"
+            : `/${routeTo(currentUser.role)}/dashboard`
+        }
+      />
+    );
 
   return (
     <>
@@ -51,11 +59,14 @@ function LoginForm({ loginHandler, onSubmit }: LoginFormProps) {
           setMessage(null);
           setSubmitting(true);
           onSubmit(formData)
-            .then(({ data: { token, data } }) => {
-              loginHandler(token, data);
-              toast.success(`Welcome, ${data.name}`, {
-                style: { background: "rgb(0,0,0,0.9", color: "white" },
-              });
+            .then(({ data: { success, token, data } }) => {
+              if (success) {
+                // saving data in local storage, so current user will be there and above navigate function will work
+                loginHandler(token, data);
+                toast.success(`Welcome, ${data.name}`, {
+                  style: { background: "rgb(0,0,0,0.9", color: "white" },
+                });
+              }
             })
             .catch(
               // arrow function with in catch to set message error

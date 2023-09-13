@@ -97,10 +97,13 @@ function LoggedInHeaderButton({
             !dropdown ? "hidden" : ""
           } flex flex-col gap-2 absolute top-8 right-2 shadow-xl border-1 z-10 bg-white p-3 text-sm text-primary font-black rounded-md`}
         >
-          {children}
-          <Link to={`/${route}/profile`}>Profile</Link>
           <HeaderLinks currentUser={currentUser} />
-
+          <Link
+            to={`/${route}/profile`}
+            className="text-black text-[16px] leading-7 font-[500] hover:text-primary"
+          >
+            Profile
+          </Link>
           <Link
             to={`/${route}/login`}
             onClick={() => {
