@@ -8,7 +8,7 @@ export interface IHospital {
   country: string;
   mobile: string;
   website: string;
-  images: string[];
+  image: string;
   password: string;
   confirmPassword: string;
 }

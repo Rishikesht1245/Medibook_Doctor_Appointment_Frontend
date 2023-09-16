@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Patient from "../layouts/Patient";
 import Login from "../pages/patients/Login";
 import Signup from "../pages/patients/Signup";
-import Otp from "../pages/patients/Otp";
+import Otp from "../components/forms/Otp";
 
 const PatientRoutes = () => {
   return (

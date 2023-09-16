@@ -7,8 +7,9 @@ export const hospitalRegistrationSchema = yup.object().shape({
     .required("*Email is required")
     .trim()
     .lowercase()
-    .test("isvalidEmail", "Invalid e-Mail", (arg) =>
-      /[a-z0-9]+@[a-z0-9]+.com/i.test(arg)
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "Invalid email address"
     ),
   description: yup.string().required("*Description is required").trim(),
   location: yup.string().required("*Locations is required").trim(),
@@ -19,11 +20,13 @@ export const hospitalRegistrationSchema = yup.object().shape({
     .string()
     .required("*Mobile is required")
     .matches(/^[0-9]{10}$/, "Invalid mobile number"),
-  website: yup.string().url().trim(),
-  images: yup
-    .array()
-    .of(yup.string())
-    .required("*At least one image is required"),
+  website: yup.string().test("isValidUrl", "Invalid website URL", (value) => {
+    if (!value) {
+      return true; // Allow empty website field
+    }
+    // Use a regular expression or other validation logic to check for a valid URL
+    return /^https?:\/\/\S+$/i.test(value);
+  }),
   password: yup
     .string()
     .required("*Password is required")

@@ -6,5 +6,16 @@ export const login = async (formData: ILogin) =>
   await hospitalAdminApi.post("/auth", formData);
 
 export const signup = async (formData: IHospital) => {
-  await hospitalAdminApi.post("/signup", formData);
+  return await hospitalAdminApi.post("/signup", formData);
+};
+
+export const verifyOtp_Admin = async (
+  otp: string,
+  id: string | undefined
+): Promise<any> => {
+  return await hospitalAdminApi.post("/verify-otp", { otp: otp, id: id });
+};
+
+export const resendOtp_Admin = async (id: string | undefined): Promise<any> => {
+  return hospitalAdminApi.get(`/resend-otp/${id}`);
 };

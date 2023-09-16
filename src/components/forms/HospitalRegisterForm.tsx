@@ -17,6 +17,7 @@ interface HospitalRegisterFormProps {
 
 const HospitalRegisterForm = ({ onSubmit }: HospitalRegisterFormProps) => {
   const [message, setMessage] = useState<string | null>(null);
+  const [hospiatalImg, setHospitalImg] = useState<any>("");
 
   const navigate = useNavigate();
   const initialValues: IHospital = {
@@ -27,7 +28,7 @@ const HospitalRegisterForm = ({ onSubmit }: HospitalRegisterFormProps) => {
     city: "",
     state: "",
     country: "",
-    images: [], // Initialize as an empty array for multiple images
+    image: "", // Initialize as an empty array for multiple images
     mobile: "",
     website: "",
     password: "",
@@ -42,11 +43,12 @@ const HospitalRegisterForm = ({ onSubmit }: HospitalRegisterFormProps) => {
         onSubmit={(formData, { setSubmitting }: any) => {
           setMessage(null);
           setSubmitting(true);
+          formData.image = hospiatalImg;
           onSubmit(formData)
-            .then((response) => {
-              if (response?.data?.success) {
-                navigate("hospital-admins/login");
-                return toast.success(response.data.message, {
+            .then(({ data }) => {
+              if (data?.success) {
+                navigate(`/hospital-admins/signup/otp-verification/${data.id}`);
+                return toast.success(data.message, {
                   style: { background: "rgba(0,0,0,0.9)", color: "white" },
                 });
               }
@@ -56,14 +58,22 @@ const HospitalRegisterForm = ({ onSubmit }: HospitalRegisterFormProps) => {
                 response: {
                   data: { message },
                 },
-              }) => setMessage(message)
+              }) => {
+                setMessage(message);
+                return toast.error(message, {
+                  style: { background: "rgba(0,0,0,0.9)", color: "white" },
+                });
+              }
             )
             .finally(() => setSubmitting(false));
         }}
       >
         {/* setFieldValue is used for image binding to the input field <Field/> component doesn't support type file */}
-        {({ isSubmitting, setFieldValue }) => (
-          <Form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 lg:gap-8 px-1 mb-3">
+        {({ isSubmitting }) => (
+          <Form
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 lg:gap-8 px-1 mb-3"
+            encType="multipart/form-data"
+          >
             <Input type="text" placeholder="Name" name="name" />
             <Input type="email" placeholder="Email" name="email" />
             <TextArea
@@ -79,9 +89,9 @@ const HospitalRegisterForm = ({ onSubmit }: HospitalRegisterFormProps) => {
             <Input type="number" placeholder="Contact number" name="mobile" />
             <Input type="text" placeholder="Website" name="website" />
             <ImageInput
-              placeholder="Images"
-              name="images"
-              setFieldValue={setFieldValue}
+              placeholder="Image"
+              name="image"
+              setHospitalImg={setHospitalImg}
             />
             <PasswordInput
               placeholder="Password"

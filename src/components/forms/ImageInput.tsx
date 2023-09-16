@@ -1,11 +1,12 @@
-import React from "react";
-
+import { ErrorMessage } from "formik";
+import { ChangeEvent } from "react";
+import { Url } from "url";
 interface ImageInputProps {
   name: string;
   placeholder: string;
   edit?: boolean;
   className?: string;
-  setFieldValue: (field: string, value: any) => void;
+  setHospitalImg: (file: string | ArrayBuffer | null) => void;
 }
 
 function ImageInput({
@@ -13,15 +14,27 @@ function ImageInput({
   placeholder,
   edit,
   className,
-  setFieldValue,
+  setHospitalImg,
 }: ImageInputProps) {
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      setFieldValue(name, files[0]);
+  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const file = e.target.files[0];
+      TransformFileData(file);
     }
   };
 
+  const TransformFileData = (file: File) => {
+    const reader = new FileReader();
+
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setHospitalImg(reader.result);
+      };
+    } else {
+      setHospitalImg("");
+    }
+  };
   return (
     <div className={`${className} flex flex-col`}>
       {edit && (
@@ -37,9 +50,12 @@ function ImageInput({
         id={name}
         name={name}
         type="file"
-        onChange={handleFileChange}
-        multiple
+        onChange={handleImageUpload}
       />
+
+      <span className="m-1 text-sm font-semibold text-red-800">
+        <ErrorMessage name={name} />
+      </span>
     </div>
   );
 }

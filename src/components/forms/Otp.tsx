@@ -2,11 +2,14 @@ import { useParams } from "react-router-dom";
 import { patientBgImg } from "../../assets/images/images";
 import { IRole } from "../../interfaces/auth";
 import { useState } from "react";
-import { verifyOtp, resendOtp } from "../../apiRoutes/patient";
+import { verifyOtp_Patient, resendOtp_Patient } from "../../apiRoutes/patient";
+import {
+  verifyOtp_Admin,
+  resendOtp_Admin,
+} from "../../apiRoutes/hospitalAdmin";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { error } from "console";
-import LoadingButton from "../../components/UI/LoadingButton";
+import LoadingButton from "../UI/LoadingButton";
 
 interface OtpProps {
   role: IRole;
@@ -15,6 +18,8 @@ interface OtpProps {
 const Otp = ({ role }: OtpProps) => {
   // setting the route based on the role of user
   const route = role === "patient" ? "patients" : "hospital-admins";
+  const verifyOtp = role === "patient" ? verifyOtp_Patient : verifyOtp_Admin;
+  const resendOtp = role === "patient" ? resendOtp_Patient : resendOtp_Admin;
   const { id } = useParams();
 
   const [otp, setOtp] = useState(new Array(4).fill(""));

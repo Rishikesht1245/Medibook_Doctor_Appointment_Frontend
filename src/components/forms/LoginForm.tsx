@@ -23,9 +23,9 @@ function LoginForm({ loginHandler, onSubmit }: LoginFormProps) {
   const routeTo = useCallback((role: string): string | undefined => {
     switch (role) {
       case "superAdmin":
-        return "superAdmins";
+        return "super-admins";
       case "hospitalAdmin":
-        return "hospitalAdmins";
+        return "hospital-admins";
       case "doctor":
         return "doctors";
       case "patient":
@@ -61,7 +61,7 @@ function LoginForm({ loginHandler, onSubmit }: LoginFormProps) {
           onSubmit(formData)
             .then(({ data: { success, token, data } }) => {
               if (success) {
-                // saving data in local storage, so current user will be there and above navigate function will work
+                // saving data in local storage, so current user will be there and above navigate function will
                 loginHandler(token, data);
                 toast.success(`Welcome, ${data.name}`, {
                   style: { background: "rgb(0,0,0,0.9", color: "white" },
